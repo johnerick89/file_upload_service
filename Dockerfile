@@ -7,9 +7,17 @@ WORKDIR /app
 # Copy the requirements file into the container at /app
 COPY requirements.txt /app/
 
-# Install Celery
-# RUN pip install celery
-RUN python3 -m pip install celery
+
+# Install setuptools, numpy, celery
+RUN apk update && \
+    apk add --no-cache python3-dev build-base && \
+    apk add --no-cache postgresql-dev && \
+    python3 -m ensurepip && \
+    pip3 install --no-cache --upgrade pip setuptools && \
+    python3 -m pip install wheel && \
+    python3 -m pip install numpy==1.24.2 && \
+    python3 -m pip install celery && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Copy the Celery configuration file into the container
 COPY ./file_upload_service/celery.py /app/

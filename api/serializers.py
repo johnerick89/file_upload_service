@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from django_fsm import FSMIntegerField, transition
 from .models import User, File
 
 class UserSerializer(serializers.ModelSerializer):

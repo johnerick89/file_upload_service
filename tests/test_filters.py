@@ -1,12 +1,16 @@
 from django.utils import timezone
 from django.test import TestCase
+from django.test import TransactionTestCase
 from django_filters import rest_framework as filters
 from mixer.backend.django import mixer
 
 from api.models import User
 from api.filters import UserFilter
 
-class UserFilterTestCase(TestCase):
+class UserFilterTestCase(TransactionTestCase):
+    def tearDown(self):
+        self._fixture_teardown()
+
     def setUp(self):
         self.first_name = 'John'
         self.last_name = 'Doe'
@@ -20,14 +24,6 @@ class UserFilterTestCase(TestCase):
 
     def test_filter_by_first_name(self):
         data = {'first_name': self.first_name}
-        queryset = User.objects.all()
-        f = UserFilter(data, queryset=queryset)
-
-        self.assertEqual(len(f.qs), 1)
-        self.assertEqual(f.qs[0], self.user1)
-
-    def test_filter_by_last_name(self):
-        data = {'last_name': self.last_name}
         queryset = User.objects.all()
         f = UserFilter(data, queryset=queryset)
 

@@ -166,3 +166,8 @@ LOGGING = {
         },
     },
 }
+
+FSM_LOG_IGNORED_MODELS = (
+    'auth.User',
+    'auth.Group',
+)

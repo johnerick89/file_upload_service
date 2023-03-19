@@ -8,15 +8,16 @@ The file_upload_service is an API Build a REST API for uploading a file with bil
 - requests 2.25.0 or higher
 
 ## Setup
-To set up and run the itunes-api-wrapper, follow these steps:
+To set up and run the file_upload_service, follow these steps:
 
 1. Clone the repository: `$ git clone https://github.com/johnerick89/file_upload_service.git`
 2. Navigate into the project directory: `$ cd file_upload_service`
 3. Create a new virtual environment (optional): `$ python3 -m venv env`
 4. Activate the virtual environment: `$ source env/bin/activate` (Linux/MacOS) or `$ env\Scripts\activate` (Windows)
-5. Install the dependencies: `$ pip install -r requirements.txt`
-6. Run the migrations: `$ python3 manage.py migrate`
-7. Install redis in a terminal by running `$ sudo apt install redis` then start it by running: `$ redis-server`
+5. Create a `.env` file from the `.env.example` file provided with your own database and redis credentials.
+6. Install the dependencies: `$ pip install -r requirements.txt`
+7. Run the migrations: `$ python3 manage.py migrate`
+8. Install redis in a terminal by running `$ sudo apt install redis` then start it by running: `$ redis-server`
 
 Alternatively, you could use docker for running the app, in which case you can skip all these setup steps
 
@@ -34,6 +35,12 @@ You can access the Django admin panel at `http://127.0.0.1:8000/admin/`.
 - `GET /users`: Returns a list of all users, allows for searching, sorting and filtering.
 - `GET /files`: Returns a list of all file uploads done
 - `POST /upload`: Initiates a new file upload process. Allowed file formats as at now are `xls, xlsx, xml, csv, json and txt`
+
+
+## Running tests
+You can run the tests by executing `$ python3 manage.py test` or to run a particular suite you can run `$ python3 manage.py test tests.test_tasks`
+
+To run tests with coverage, run `$ coverage run --source='.' manage.py test tests`
 
 
 ## Contributing

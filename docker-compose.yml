@@ -28,13 +28,13 @@ services:
     - "6380:6379"
   celery:
     build: .
-    command: celery -A itunes-api-wrapper worker -l info
+    command: celery -A file_upload_service worker  -l info
     volumes:
       - .:/code
     depends_on:
       - db
       - redis
     environment:
-      - DJANGO_SETTINGS_MODULE=itunes-api-wrapper.settings
+      - DJANGO_SETTINGS_MODULE=file_upload_service.settings
       - CELERY_BROKER_URL=redis://redis:6380
       - CELERY_RESULT_BACKEND=redis://redis:6380
