@@ -20,7 +20,7 @@ RUN apk update && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy the Celery configuration file into the container
-COPY ./file_upload_service/celery.py /app/
+COPY ./file_upload_service/celery_conf.py /app/
 
 # Set the environment variable for the Celery command
 ENV C_FORCE_ROOT=1
