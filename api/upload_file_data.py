@@ -59,8 +59,6 @@ def handle_uploaded_file(file_path):
     count = 0
 
     with open(file_path, "r") as file:
-        print(file)
-
         while True:
 
             df = get_rows(steps,count, file)
