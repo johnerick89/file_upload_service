@@ -1,19 +1,9 @@
 version: "3.9"
 
 services:
-  web:
-    build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-      - redis
-      - celery
   db:
     image: postgres
+    restart: always
     environment:
       POSTGRES_DB: file_upload_service
       POSTGRES_USER: postgres
@@ -38,3 +28,14 @@ services:
       - DJANGO_SETTINGS_MODULE=file_upload_service.settings
       - CELERY_BROKER_URL=redis://redis:6380
       - CELERY_RESULT_BACKEND=redis://redis:6380
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+      - celery
