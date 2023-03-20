@@ -1,4 +1,6 @@
 import os
+os.environ['DJANGO_SETTINGS_MODULE'] = "file_upload_service.settings"
+
 from celery import Celery
 import django
 django.setup()

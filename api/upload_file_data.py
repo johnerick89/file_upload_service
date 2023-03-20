@@ -53,23 +53,27 @@ def get_rows(steps,count,file):
                 df = pd.DataFrame(data)
     return df
 
-def handle_uploaded_file(file): 
+def handle_uploaded_file(file_path): 
     steps = 2000
     n = 0
     count = 0
 
-    while True:
+    with open(file_path, "r") as file:
+        print(file)
 
-        df = get_rows(steps,count, file)
+        while True:
 
-        create_users(df)
+            df = get_rows(steps,count, file)
 
-        n+=len(df)
-        
-        count+=1
-        
-        if len(df)!=steps:
-            break
+            create_users(df)
+
+            n+=len(df)
+            
+            count+=1
+            
+            if len(df)!=steps:
+                break
+    file.close()
 
     print(f"We have completed batch processing of the users data. Total number processed is: {n}") 
 
