@@ -8,6 +8,9 @@ services:
       POSTGRES_DB: file_upload_service
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    hostname: 'db'
+    expose:
+      - "5433"
     volumes:
       - "./db:/var/lib/postgresql/data"
     ports:
