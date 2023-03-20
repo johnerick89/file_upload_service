@@ -15,7 +15,7 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_DB: itunes_api_wrapper
+      POSTGRES_DB: file_upload_service
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
