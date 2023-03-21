@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     "api",
-    'django_fsm_log'
+    'django_fsm_log',
+    "drf_yasg"
 ]
 
 MIDDLEWARE = [
@@ -176,3 +177,5 @@ DJANGO_FSM_LOG_IGNORED_MODELS = (
     'auth.User',
     'auth.Group',
 )
+
+REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}

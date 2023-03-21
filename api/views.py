@@ -27,6 +27,10 @@ class UserAPIView(APIView):
 
 
 class FileUploadView(APIView):
+    """
+    post:
+    Uploads a new File object that contains user records
+    """
     serializer_class = FileSerializer
 
     def _process_file(self, file_data):
