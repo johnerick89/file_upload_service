@@ -43,6 +43,14 @@ You can run the tests by executing `$ python3 manage.py test` or to run a partic
 To run tests with coverage, run `$ coverage run --source='.' manage.py test tests`
 
 
+## API Documentation
+
+API documentation can be accessed using three different URLs:
+- `http://127.0.0.1:8000/docs/` to access basic API documentation without much details on params and body
+- `http://127.0.0.1:8000/swagger` to access detailed swagger API documentation with details on params and body
+- `http://127.0.0.1:8000/redoc` to access detailed redoc API documentation with details on params and body
+
+
 ## Contributing
 If you find a bug or would like to contribute to the project, feel free to open an issue or submit a pull request.
 
