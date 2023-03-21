@@ -1,11 +1,7 @@
-from django.http import StreamingHttpResponse
-from wsgiref.util import FileWrapper
-
 import pandas as pd
-import numpy as np
-import json
-import xmltodict
 import xml.etree.ElementTree as ET
+
+from .models import User
 
 def get_rows(steps,count,file):
     if file.name.endswith('.csv'):
@@ -76,9 +72,6 @@ def handle_uploaded_file(file_path):
     print(f"We have completed batch processing of the users data. Total number processed is: {n}") 
 
 def create_users(df):
-    # We are importing this here to fix circular imports issue
-    from .models import User
-
     users = []
     for index, row in df.iterrows():
         user = User.objects.create(

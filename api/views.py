@@ -1,16 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-from django.http import Http404
 from rest_framework import status
 from rest_framework import filters
-import pandas as pd
-from datetime import datetime
 
 from .models import User, File
 from .serializers import UserSerializer, FileSerializer
 from .filters import UserFilter
-from .upload_file_data import handle_uploaded_file
 from .tasks import handle_uploaded_file_task
 
 class UserAPIView(APIView):
