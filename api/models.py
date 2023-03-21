@@ -49,14 +49,15 @@ class File(models.Model):
     @fsm_log_description
     @transition(field=status, source='new', target='processing')
     def process_file(self):
-        try:
-            # handle_uploaded_file(self.file)
-            # Spawn a new Celery task for processing the file data
-            handle_uploaded_file_task.apply_async(args=[self.file.path])
-            self.complete_processing()
-        except Exception as e:
-            print(f"An error occurred while processing the file: {e}")
-            self.fail_processing()
+        # try:
+        #     # handle_uploaded_file(self.file)
+        #     # Spawn a new Celery task for processing the file data
+        #     handle_uploaded_file_task.apply_async(args=[self.file.path])
+        #     self.complete_processing()
+        # except Exception as e:
+        #     print(f"An error occurred while processing the file: {e}")
+        #     self.fail_processing()
+        return 'Status is processing'
     
     @fsm_log_by
     @fsm_log_description
