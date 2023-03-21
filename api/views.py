@@ -1,16 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
-from django.http import Http404
 from rest_framework import status
 from rest_framework import filters
-import pandas as pd
-from datetime import datetime
 
 from .models import User, File
 from .serializers import UserSerializer, FileSerializer
 from .filters import UserFilter
-from .upload_file_data import handle_uploaded_file
+from .tasks import handle_uploaded_file_task
 
 class UserAPIView(APIView):
     """
@@ -32,6 +29,20 @@ class UserAPIView(APIView):
 class FileUploadView(APIView):
     serializer_class = FileSerializer
 
+    def _process_file(self, file_data):
+        file_obj = File.objects.get(pk=file_data['id']) 
+        file_obj.process_file()
+        
+        try:
+            handle_uploaded_file_task.apply_async(args=[file_obj.file.path])
+            file_obj.complete_processing()
+        except Exception as e:
+            print(f"An error occurred while processing the file: {e}")
+            file_obj.fail_processing()
+        
+        file_obj.save()
+        
+
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
@@ -40,6 +51,7 @@ class FileUploadView(APIView):
            
             if any(file.name.endswith(file_type) for file_type in allowed_file_types):
                 serializer.save()
+                self._process_file(serializer.data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
                 return Response({'error': 'Invalid file format. Only CSV files are allowed.'}, status=status.HTTP_400_BAD_REQUEST)
