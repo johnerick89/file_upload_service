@@ -33,8 +33,8 @@ You can access the Django admin panel at `http://127.0.0.1:8000/admin/`.
 
 ## Endpoints
 - `GET /users`: Returns a list of all users, allows for searching, sorting and filtering.
-- `GET /files`: Returns a list of all file uploads done
-- `POST /upload`: Initiates a new file upload process. Allowed file formats as at now are `xls, xlsx, xml, csv, json and txt` and the key is `file`
+- `GET /file_uploads`: Returns a list of all file uploads done
+- `POST /file_uploads`: Initiates a new file upload process. Allowed file formats as at now are `xls, xlsx, xml, csv, json and txt` and the key is `file`
 
 
 ## Running tests
