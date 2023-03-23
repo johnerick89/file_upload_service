@@ -38,6 +38,12 @@ EXPOSE 8000
 # Define environment variables
 ENV DJANGO_SETTINGS_MODULE=file_upload_service.settings
 
+# Copy the boot.sh file into the container and set its permissions
+# COPY ./bin/start.sh /app/
+
+RUN chmod +x ./bin/start.sh
+
 # Start the server
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+# CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["bash", "-c", "./bin/start.sh && python3 manage.py runserver 0.0.0.0:8000"]
 

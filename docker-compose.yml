@@ -29,11 +29,12 @@ services:
       - redis
     environment:
       - DJANGO_SETTINGS_MODULE=file_upload_service.settings
-      - CELERY_BROKER_URL=redis://redis:6380
-      - CELERY_RESULT_BACKEND=redis://redis:6380
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
   web:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8000
+    # command: sh -c './bin/start.sh && python3 manage.py runserver 0.0.0.0:8000'
+    command: python3 manage.py runserver 0.0.0.0:8000 
     volumes:
       - .:/code
     ports:
