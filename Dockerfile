@@ -32,6 +32,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire application directory into the container at /app
 COPY . /app/
 
+# update permissions of the uploads folder to root user
+RUN mkdir -p /app/uploads && chown -R root:root /app/uploads
+
 # Expose port 8000
 EXPOSE 8000
 
